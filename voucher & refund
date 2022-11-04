@@ -1,0 +1,18 @@
+SELECT 
+
+EXTRACT(MONTH FROM created_date) AS month 
+, request_refund_method
+, COUNT(DISTINCT order_id)
+
+FROM `fulfillment-dwh-production.curated_data_shared_gcc_service.helpcenter_automations` 
+ 
+ 
+WHERE global_entity_id  ="OP_SE"
+AND created_date >= "2022-01-01"
+-- AND fallback_reason IS NULL
+AND request_reason_code = "2A.1"
+
+
+GROUP BY 1,2
+
+ORDER BY month DESC 
